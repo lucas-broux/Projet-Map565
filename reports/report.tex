@@ -1,0 +1,67 @@
+\documentclass[11pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{amsfonts}
+\usepackage{dsfont}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{float}
+\usepackage[left=3cm,right=3cm,top=3cm,bottom=3cm]{geometry}
+\usepackage{makeidx}
+\makeatletter
+\newcommand{\mathleft}{\@fleqntrue\@mathmargin0pt}
+\newcommand{\mathcenter}{\@fleqnfalse}
+\makeatother
+\setlength\parindent{0pt}
+\makeindex
+
+% Define 2 graphic paths to images.
+\graphicspath{{images/}{../images/}}
+
+% Import subfiles package. 
+\usepackage{subfiles}
+
+% Define new theorem style.
+\newtheorem{prop}{Proposition}[section]
+
+\title{Rapport Intermédiaire}
+
+\begin{document}
+
+%\begin{center}
+%\includegraphics[scale=0.2]{../../../Desktop/logo.jpg}
+%\end{center}
+
+% Front page.
+\subfile{sections/titlepage}
+
+% Page of contents.
+\pagebreak
+\tableofcontents
+\pagebreak
+
+% Introduction.
+\section{Introduction}
+\subfile{sections/introduction}
+
+
+
+% Conclusion
+\pagebreak
+\section{Conclusion}
+\subfile{sections/conclusion}
+
+
+% Bibliography.
+\pagebreak
+\nocite{*}
+\bibliographystyle{plain}
+\bibliography{projectbib}
+
+
+\end{document}

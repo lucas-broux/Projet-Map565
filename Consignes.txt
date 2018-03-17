@@ -1,0 +1,23 @@
+Bonjour à tous,
+
+Je souhaitais juste vous rappeler qu'il n'y aura pas cours ce mercredi.
+
+Vous pouvez en profiter pour rechercher sur internet des jeux de données en vue de votre mémoire qui sera à faire en binôme.
+
+Il s'agira de mettre en oeuvre les techniques statistiques vues en cours pour répondre à certaines problématiques pertinentes de votre choix.
+
+Votre mémoire, qui devra faire une quinzaine de page maximum, comportera nécessairement une étude de type séries temporelles ainsi que l'utilisation de deux techniques vues dans ma partie.
+
+Vous pourrez vous servir d'un seul jeu de données ou bien de deux voire trois. De même vous pourrez considérer une, deux ou trois problématiques.
+
+La contrainte est que vous utilisiez des données comprenant au moins partiellement l'année 2017. Une partie des données peut-être simulée si cela vous permet de répondre à votre problématique.
+
+Le logiciel de travail est libre, ainsi que la thématique: données économiques, financières, environnementales, sportives, énergétiques, commerce...
+
+La mémoire sera à rendre pour le 30 mars.
+
+Je serai bien sûr à votre disposition pour répondre à vos questions la semaine prochaine.
+
+Très cordialement,
+
+Mathieu Rosenbaum
