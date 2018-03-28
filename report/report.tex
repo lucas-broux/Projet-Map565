@@ -17,7 +17,7 @@
 \newcommand{\mathleft}{\@fleqntrue\@mathmargin0pt}
 \newcommand{\mathcenter}{\@fleqnfalse}
 \makeatother
-\setlength\parindent{0pt}
+
 \makeindex
 
 % Define 2 graphic paths to images.
@@ -29,7 +29,6 @@
 % Define new theorem style.
 \newtheorem{prop}{Proposition}[section]
 
-\title{Rapport Intermédiaire}
 
 \begin{document}
 
@@ -43,12 +42,26 @@
 % Page of contents.
 \pagebreak
 \tableofcontents
-\pagebreak
 
 % Introduction.
+\pagebreak
 \section{Introduction}
 \subfile{sections/introduction}
 
+% Première partie : approche "série temporelle".
+\pagebreak
+\section{Analyse de la série temporelle}
+\subfile{sections/section_1}
+
+% Deuxième partie : statistique des extrêmes.
+\pagebreak
+\section{Statistique des extrêmes}
+\subfile{sections/section_2}
+
+% Troisième partie : modélisation des dépendances.
+\pagebreak
+\section{Modélisation des dépendances}
+\subfile{sections/section_3}
 
 
 % Conclusion
