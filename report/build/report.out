@@ -1,5 +1,13 @@
 \BOOKMARK [1][-]{section.1}{Introduction}{}% 1
 \BOOKMARK [1][-]{section.2}{Analyse de la s\351rie temporelle}{}% 2
-\BOOKMARK [1][-]{section.3}{Statistique des extr\352mes}{}% 3
-\BOOKMARK [1][-]{section.4}{Mod\351lisation des d\351pendances}{}% 4
-\BOOKMARK [1][-]{section.5}{Conclusion}{}% 5
+\BOOKMARK [2][-]{subsection.2.1}{M\351thodologie}{section.2}% 3
+\BOOKMARK [2][-]{subsection.2.2}{Visualisation des donn\351es}{section.2}% 4
+\BOOKMARK [2][-]{subsection.2.3}{Identification de trend}{section.2}% 5
+\BOOKMARK [2][-]{subsection.2.4}{Mod\351lisation de la s\351rie}{section.2}% 6
+\BOOKMARK [2][-]{subsection.2.5}{Pr\351dictions}{section.2}% 7
+\BOOKMARK [1][-]{section.3}{Statistique des extr\352mes}{}% 8
+\BOOKMARK [2][-]{subsection.3.1}{M\351thodologie}{section.3}% 9
+\BOOKMARK [2][-]{subsection.3.2}{Estimateurs de Hill et Pickands}{section.3}% 10
+\BOOKMARK [2][-]{subsection.3.3}{M\351thode peak over threshold}{section.3}% 11
+\BOOKMARK [1][-]{section.4}{Mod\351lisation des d\351pendances}{}% 12
+\BOOKMARK [1][-]{section.5}{Conclusion}{}% 13

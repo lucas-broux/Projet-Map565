@@ -1,9 +1,0 @@
-Bases de données en fonction du temps (1 unité de temps = 1 mois): 
-	- Nombre d'utilisateurs totaux
-	- Nombre d'utilisateurs nouveaux sur le mois
-	- Nombre d'articles
-	- Nombre d'articles nouveaux sur le mois
-	- Nombre de modifications d'articles sur le mois.
-
-	- Nombres de vues sur toutes les pages sur le mois.
-
