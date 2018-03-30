@@ -12,7 +12,7 @@ from os.path import join
 import numpy as np
 
 # Open file.
-f = open(join("Bordeaux", "data.txt"), "r")
+f = open(join("Bordeaux", "data3.txt"), "r")
 d = np.loadtxt(f, delimiter=',')
 
 # Process data.
@@ -21,4 +21,4 @@ d = np.delete(d, range(1 + np.argwhere(d[:,2]==9)[-1][0]), 0) # Keep data only a
 d = np.delete(d, 2, 1) # Remove last column (invalidity index).
 
 # Save as clean_data.txt
-np.savetxt('clean_data_bordeaux.csv', d, delimiter=',')
+np.savetxt('clean_data_bordeaux2.csv', d, delimiter=',')
