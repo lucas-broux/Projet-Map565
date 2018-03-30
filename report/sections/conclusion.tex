@@ -2,4 +2,20 @@
 
 \begin{document}
 
+\par Ainsi, nous avons tâché de répondre à plusieurs problématiques climatiques en appliquant différentes méthodes de modélisation statistique vues en cours.
+
+\par Dans un premier temps, nous avons essayé de proposer une modélisation de la série temporelle des températures moyennes journalières observées à Bordeaux depuis 1940.
+
+\par Nous nous sommes ensuite intéressés à l'analyse des comportements extrêmes des températures. Pour cela, nous avons considéré les températures maximales journalières observées à Bordeaux depuis 1940 en cherchant à étudier le comportement des températures hautes i.e. des risques de canicule. Contrairement à notre intuition originale, nous avons constaté que la distribution des températures hautes présentait une queue relativement fine. Les estimateurs proposés ont permis de confirmer numériquement ce phénomène notamment en estimant un $\xi$ négatif tel que la distribution appartienne à une loi max-stable $H_{\xi}$. En revanche, nous avons constaté que les méthodes présentées en cours sont moins pertinentes pour ce genre de distribution car aucune des méthodes appliquées n'a permis d'établir un estimateur conforme aux données. Plusieurs facteurs ont peut-être influencé ces phénomènes : 
+\begin{itemize}
+\item D'une part, nous avons supposé les données indépendantes, or les relevés d'une journée influencent potentiellement les suivants.
+\item D'autre part, certains phénomènes de stabilité numérique dans le calcul d'optimisation par maximum de vraisemblance peuvent fausser les estimations.
+\end{itemize}
+
+\par Enfin, nous avons cherché à étudier les dépendances entre les relevés de températures de différentes villes relativement éloignées.
+
+\vspace{5mm}
+
+\par Ce projet nous a permis de mettre en oeuvre les méthodes travaillées durant le cours, et a été l'occasion de nous mesurer à l'étude de données réelles. Notamment, nous nous sommes rendus compte à quel point il est important de ne pas appliquer aveuglément les formules théoriques sans étudier le comportement empirique et heuristique des données. Nous avons ainsi pu constater la nécessité de penser de manière critique les méthodes employées et les estimateurs calculés : le processus de modélisation statistique a été itératif, et il est illusoire de vouloir chercher à l'automatiser ou de se contenter des premiers résultats.
+
 \end{document}

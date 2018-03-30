@@ -8,7 +8,7 @@
 \subsection{Méthodologie}
 
 % Données.
-\par Nous conservons la même base de données que dans la partie précédente, mais nous considérons dans cette partie les mesures de températures maximales journalières prises entre le 15 juillet et le 15 août de chaque année, afin d'effacer le caractère saisonnier mis en évidence dans la première partie.
+\par Nous conservons la même base de données que dans la partie précédente, mais nous considérons dans cette partie les mesures de températures maximales journalières prises entre le 15 juillet et le 15 août de chaque année, afin d'effacer le caractère saisonnier mis en évidence dans la première partie. Nous faisons l'approximation - peut-être grossière - que ces valeurs sont indépendantes. Rappelons que les températures sont fournies sous l'unité 10 * \SI{}{\celsius}.
 
 % Contexte.
 \par Nous supposons ainsi que ces données correspondent à $n$ observations i.i.d. $X_1, ..., X_n$ d'une loi $\mathbb{P}$ inconnue. L'objectif est d'estimer, pour $\alpha \in \left[0, 1 \right]$ proche de 1, le quantile d'ordre $\alpha$ de cette loi. Cela nous donnera la valeur de température qui ne sera pas dépassée - avec un niveau de confiance $\alpha$. Notre mesure de "risque de canicule" sera alors la valeur de $\alpha$ pour laquelle cette température maximale est \SI{35}{\celsius}.
@@ -74,11 +74,11 @@ où $X_{\left(i, n \right)}$ correspond à la i-ème plus grande valeur parmi to
   \caption{Diagramme quantile-quantile}
 \end{figure}
 
-\par Nous pouvons constater que comme prédit par l'analyse heuristique précédente des données, cette méthode propose un estimateur négatif. Nous observons un domaine de stabilité pour $k \in \left[ 200; 400 \right]$ et nous pouvons choisir pour valeur de $\xi$ l'estimation associée :
+\par Nous pouvons constater que, comme prédit par l'analyse heuristique précédente des données, cette méthode propose un estimateur négatif. Nous observons un domaine de stabilité pour $k \in \left[ 200; 400 \right]$ et nous pouvons choisir pour valeur de $\xi$ l'estimation associée :
 \begin{displaymath}
 \hat{\xi} = -0.3
 \end{displaymath}
-\par Notons qu'en vertu des résultats du cours, le fait que $\xi$ soit négatif implique l'existence d'une constante $x_F$ telle que pour $x \geq x_F$, $\mathbb{P} \left( X \geq x \right) = 1$. L'interprétation physique du phénomène semble confirmer ce phénomène, mais l'existence d'un tel $x_F$ rend difficile et moins pertinentes les analyses de risque.
+\par Notons qu'en vertu des résultats du cours, le fait que $\xi$ soit négatif implique l'existence d'une constante $x_F$ telle que pour $x \geq x_F$, $\mathbb{P} \left( X \geq x \right) = 1$. L'interprétation physique de la canicule pourrait confirmer ce phénomène, mais l'existence d'un tel $x_F$ rend difficile et moins pertinentes les analyses de risque.
 
 \par Nous ne pouvons donc pas exploiter le fait que - selon un théorème vu en cours - il existe une fonction $L$ à variations lentes telle que la fonction de répartition voulue s'écrive
 \begin{displaymath}
@@ -92,9 +92,9 @@ puisque nous ne savons pas estimer $x_F$. Nous allons devoir employer une autre 
 \par Rappelons l'algorithme de la méthode \emph{peak over threshold} présentée durant le cours. 
 \par Dans un premier temps, nous estimons $u > 0$ tel que la fonction empirique $e_n$ définie par 
 \begin{displaymath}
-e_n \left( u \right) := \frac{1}{N_u} \sum\limits_{i, X_i > x} \left( X_i - x \right)
+e_n \left( x \right) := \frac{1}{N_x} \sum\limits_{i, X_i > x} \left( X_i - x \right)
 \end{displaymath}
-( ù $N_u : = card \left\lbrace i \in \left[ 1; n \right], X_i > u \right\rbrace$), soit à peu près linéaire.
+( ù $N_u : = card \left\lbrace i \in \left[ 1; n \right], X_i > u \right\rbrace$), soit à peu près linéaire pour $x \geq u$.
 \par Nous notons ensuite $Y_i := X_i - u$ les excès, et nous calculons (numériquement) $\hat{\xi} \in \mathbb{R}$ et $\hat{\beta} > 0$ maximisant le maximum de vraisemblance 
 \begin{displaymath}
 L = - n \log \left( \beta \right) - \left( \frac{1}{\xi} + 1 \right) \sum\limits_{i = 1}^n \log \left( 1 + \frac{\xi Y_i}{\beta} \right)
@@ -103,5 +103,49 @@ L = - n \log \left( \beta \right) - \left( \frac{1}{\xi} + 1 \right) \sum\limits
 \begin{displaymath}
 \hat{\bar{F}} \left( u + y \right) = \frac{N_u}{n} {\left( 1 + \frac{\hat{\xi} y}{\hat{\beta}} \right)}^{-\frac{1}{\hat{\xi}}}
 \end{displaymath}
+
+\par Nous traçons d'abord le graphe de $e_n \left( x \right)$ en fonction de la température $x$ et obtenons :
+\begin{figure}[H]
+  \centering
+    \includegraphics[width=0.7\textwidth]{images/part_2/e_n.png}
+  \caption{Graphe de $e_n$}
+\end{figure}
+
+\par Nous observons que la croissance semble être quadratique dans un premier temps, puis linéaire à partir de $u = 225$. Nous conservons cette valeur de $u$ et réalisons numériquement l'optimisation de la vraisemblance. Nous trouvons 
+\begin{displaymath}
+\begin{cases}
+\hat{\xi} &= -0.764\\
+\hat{\beta} &= 150
+\end{cases}
+\end{displaymath}
+
+\par Cela semble bien confirmer le phénomène établi dans la section précédente d'une fine queue de distribution.
+
+\par Estimant $\xi$ et $\beta$ par régression linéaire sur la fonction $e_n \left( u \right) \simeq \frac{\beta + \xi u}{1 - \xi}$, nous obtenons des résultats ayant le même ordre de grandeur : 
+\begin{displaymath}
+\begin{cases}
+\hat{\xi} &= -0.376\\
+\hat{\beta} &= 152
+\end{cases}
+\end{displaymath}
+
+\par Nous pouvons dès lors tracer la fonction de répartition estimée selon les deux méthodes, que nous comparons avec la fonction de répartition empirique :
+\begin{figure}[H]
+  \centering
+    \includegraphics[width=0.7\textwidth]{images/part_2/repartition.png}
+  \caption{Graphe de $e_n$}
+\end{figure}
+
+\par Malheureusement, les résultats ne sont pas très pertinents, car les fonctions estimées n'approximent pas très bien la fonction de répartition empirique, même si ils restent relativement consistants avec le fait que la queue de distribution observée est fine. Réalisant l'application numérique, nous trouvons
+\begin{displaymath}
+\mathbb{P} \left( X \geq \SI{35}{\celsius} \right) = 
+	\begin{cases}
+	0.78 \quad &\text{pour l'estimateur du maximum de vraisemblance} \\
+	0.69 \quad &\text{pour l'estimateur par régression linéaire} \\
+	0.96 \quad &\text{pour l'estimateur empirique} \\
+	\end{cases}
+\end{displaymath}
+
+\par Ainsi les modèles proposés, même si ils respectent le fait que la queue de distribution soit fine, ne permettent pas d'obtenir des résultats précis pour des événements rares. On peut en revanche imaginer qu'ils sont plus pertinents pour les événements très rares car on constate que l'estimateur du maximum de vraisemblance semble devenir proche de l'estimateur empirique pour des températures supérieures à \SI{41}{\celsius}.
 
 \end{document}
