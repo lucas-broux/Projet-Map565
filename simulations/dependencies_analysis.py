@@ -34,28 +34,12 @@ x = range(len(y))
 # pylab.show()
 
 # Plot series.
-# plt.figure(0)
-# plt.plot(x, y, label = "Température estivale à Bordeaux depuis 1946")
-# plt.title("Température estivale à Bordeaux depuis 1946")
-# plt.xlabel("Temps")
-# plt.ylabel("Température")
-# plt.legend(loc = 'best')
-# plt.show()
-
-# Compute Hill estimator.
-def hill_estimator(X, k):
-    """
-    Compute hill estimator with parameter k.
-
-    :param X: The considered values.
-    :param k: The parameter of the computation.
-    """
-    # Sort values.
-    X.sort()
-    # Compute sum.
-    n = len(X)
-    s = sum([np.log(X[i]) for i in range(n - k, n)]) / k - np.log(X[n - k])
-    return s
+plt.figure(0)
+plt.plot(x, y, label = "Température estivale à Bordeaux depuis 1946")
+plt.title("Température estivale à Bordeaux depuis 1946")
+plt.xlabel("Temps")
+plt.ylabel("Température")
+plt.legend(loc = 'best')
 
 # Compute Pickands estimator.
 def pickands_estimator(X, k):
@@ -75,15 +59,15 @@ def pickands_estimator(X, k):
         s = 0
     return s
 
-
-# xi_p = [pickands_estimator(y, k) for k in range(1, int(len(y) / 4))]
-# x = range(1, int(len(y) / 4))
-# plt.figure(2)
-# plt.plot(x, xi_p, label = "Estimateur de Pickands")
-# plt.title(r"Estimateur de $\xi_k$ en fonction de k")
-# plt.xlabel("k")
-# plt.ylabel("Estimateurs")
-# plt.legend(loc = 'best')
+# Plot pickands estimator.
+xi_p = [pickands_estimator(y, k) for k in range(1, int(len(y) / 4))]
+x = range(1, int(len(y) / 4))
+plt.figure(1)
+plt.plot(x, xi_p, label = "Estimateur de Pickands")
+plt.title(r"Estimateur de $\xi_k$ en fonction de k")
+plt.xlabel("k")
+plt.ylabel("Estimateurs")
+plt.legend(loc = 'best')
 
 
 # Compute N(x).
@@ -109,14 +93,15 @@ def en(X, x):
     else:
         return 0
 
-# V = sorted(y)
-# N = [en(y, x) for x in V]
-# plt.figure(2)
-# plt.plot(V, N, label = r"$e_n (x)$")
-# plt.title(r"$e_n(x)$ en fonction de la température $x$")
-# plt.xlabel("Température")
-# plt.ylabel(r"$e_n$")
-# plt.legend(loc = 'best')
+# Plot en.
+V = sorted(y)
+N = [en(y, x) for x in V]
+plt.figure(2)
+plt.plot(V, N, label = r"$e_n (x)$")
+plt.title(r"$e_n(x)$ en fonction de la température $x$")
+plt.xlabel("Température")
+plt.ylabel(r"$e_n$")
+plt.legend(loc = 'best')
 
 # We take u = 225 for the remaining computations.
 u = 225
@@ -141,7 +126,7 @@ def likelihood(X, xi, beta):
     return t2
 
 
-# Extimate xi and beta by likelihood optimization.
+# Estimate xi and beta by likelihood optimization.
 L = lambda x :  - likelihood(y, x[0], x[1])
 bnds = ((None, None), (0.1, None))
 x0 = (-0.2, 150)
@@ -193,7 +178,7 @@ V = range(1, 200)
 F_1 = [F(y, v, xi_1, beta_1) for v in V]
 F_2 = [F(y, v, xi_2, beta_2) for v in V]
 F_3 = [F_empirical(y, u + v) for v in V]
-plt.figure(2)
+plt.figure(3)
 plt.plot([v + u for v in V], F_1, label = r"$\hat{F}(u + y)$ pour l'estimateur par m.v.")
 plt.plot([v + u for v in V], F_2, label = r"$\hat{F}(u + y)$ pour l'estimateur par régression linéaire.")
 plt.plot([v + u for v in V], F_3, label = r"$\hat{F}(u + y)$ empirique.")
