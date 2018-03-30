@@ -1,0 +1,66 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*.
+
+Why not using StructTS {stats} ?
+
+```{r}
+library(ggplot2)
+data <- read.csv("data/clean_data_bordeaux.csv")
+colnames(data) <- c("time","temperature")
+summary(data)
+head(data)
+
+myts <- ts(data$temperature, start=c(1946, 12, 06), end=c(2018, 02, 28), frequency=365,24)
+plot(myts)
+fit <- stl(myts, s.window="period")
+plot(fit)
+plot(fit$time.series)
+summary(fit$time.series)
+remainder <- fit$time.series[,"remainder"]
+head(remainder)
+#monthplot(myts)
+#library(forecast)
+#seasonplot(myts)
+```
+
+```{r}
+fit <- arima(myts, order=c(2, 0, 2))
+
+# predictive accuracy
+library(forecast)
+accuracy(fit)
+
+# predict next 5 observations
+library(forecast)
+forecast(fit, 5)
+plot(forecast(fit, 5))
+```
+
+```{r}
+fit <- auto.arima(myts)
+accuracy(fit)
+```
+
+```{r}
+print('autocorrelation')
+acf(remainder, type = 'correlation', lag.max=20)
+print('autocovariance')
+acf(remainder, type = 'covariance', lag.max=20)
+print('partial autocovariance')
+acf(remainder, type = 'partial', lag.max=20)
+dataBB <- read.csv("Buysballot.csv")
+colnames(dataBB) <- c("trend","season","res","pred")
+print('autocorrelation')
+acf(dataBB$res, type = 'correlation', lag.max=20)
+print('autocovariance')
+acf(dataBB$res, type = 'covariance', lag.max=20)
+print('partial autocovariance')
+acf(dataBB$res, type = 'partial', lag.max=20)
+```
+
