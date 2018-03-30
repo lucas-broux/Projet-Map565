@@ -1,0 +1,149 @@
+---
+title: "R Notebook"
+output:
+  pdf_document: default
+  html_notebook: default
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*.
+
+Why not using StructTS {stats} ?
+
+```{r}
+library(ggplot2)
+data <- read.csv("data/clean_data_bordeaux.csv")
+colnames(data) <- c("time","temperature")
+summary(data)
+head(data)
+
+myts <- ts(data$temperature, start=c(1946, 12, 06), end=c(2018, 02, 28), frequency=365,24)
+plot(myts)
+fit <- stl(myts, s.window="period")
+plot(fit)
+plot(fit$time.series)
+summary(fit$time.series)
+remainder <- fit$time.series[,"remainder"]
+print('standard deviation of error : ') 
+print(sd(remainder))
+head(remainder)
+#monthplot(myts)
+#library(forecast)
+#seasonplot(myts)
+```
+
+```{r}
+fit <- arima(myts, order=c(2, 0, 2))
+
+# predictive accuracy
+library(forecast)
+accuracy(fit)
+
+# predict next 5 observations
+library(forecast)
+forecast(fit, 5)
+plot(forecast(fit, 5))
+```
+
+```{r}
+fit <- auto.arima(myts)
+accuracy(fit)
+```
+
+```{r}
+print('autocorrelation')
+acf(remainder, type = 'correlation', lag.max=20)
+print('autocovariance')
+acf(remainder, type = 'covariance', lag.max=20)
+print('partial autocovariance')
+acf(remainder, type = 'partial', lag.max=20)
+dataBB <- read.csv("Buysballot.csv")
+colnames(dataBB) <- c("trend","season","res","pred")
+print('autocorrelation')
+acf(dataBB$res, type = 'correlation', lag.max=20)
+print('autocovariance')
+acf(dataBB$res, type = 'covariance', lag.max=20)
+print('partial autocovariance')
+acf(dataBB$res, type = 'partial', lag.max=20)
+```
+
+```{r}
+acf(myts, type = 'correlation', lag.max=20)
+difts = myts - lag(myts, k=1)
+plot(difts)
+acf(difts, type = 'correlation', lag.max=20)
+```
+
+```{r}
+print('autocorrelation')
+acf(difts, type = 'correlation', lag.max=30)
+print('partial autocorrelation')
+pacf(difts, lag.max=30)
+```
+
+```{r}
+arima(myts, order = c(6, 1, 6),
+      seasonal = list(order = c(0, 1, 0), period = NA))
+```
+
+```{r}
+wmyts <- window(myts, 2000, 2018)
+plot(wmyts)
+arima(wmyts, order = c(6, 1, 6),
+      seasonal = list(order = c(0, 1, 0), period = NA))
+```
+
+```{r}
+dataBor <- read.csv("data/clean_data_bordeaux.csv")
+colnames(dataBor) <- c("time","temperature")
+myts <- ts(dataBor$temperature, start=c(1946, 12, 06), end=c(2018, 02, 28), frequency=365,24)
+Bordeaux <- window(myts, 1951, 2018)
+dataPlo <- read.csv("data/clean_data_ploumanach.csv")
+colnames(dataPlo) <- c("time","temperature")
+myts <- ts(dataPlo$temperature, start=c(1950, 10, 26), end=c(2018, 02, 28), frequency=365,24)
+Ploumanach <- window(myts, 1951, 2018)
+plot(Ploumanach)
+plot(Bordeaux)
+```
+
+```{r}
+corr = ccf(Bordeaux,Ploumanach)
+corr
+```
+
+```{r}
+plot(Bordeaux,Ploumanach,pch='.')
+abline(lm(Bordeaux~Ploumanach),col='red',lwd=1)
+cor(Bordeaux,Ploumanach,method='spearman')
+cor(Bordeaux,Ploumanach,method='kendall')
+cor(Bordeaux,Ploumanach,method='pearson')
+cor.test(Bordeaux,Ploumanach,method='spearman')
+cor.test(Bordeaux,Ploumanach,method='kendall')
+```
+
+```{r}
+library(copula)
+gumbel <- gumbelCopula(dim = 2, param = 1.52)
+print(gumbel)
+gu <- rCopula(2000, gumbel)
+p2 <- qplot(gu[,1], gu[,2], main="Gumbel copula random samples theta = 1.52")
+print(p2)
+```
+
+```{r}
+library(copula)
+clayton <- claytonCopula(dim = 2, param = 1.04)
+print(clayton)
+gu <- rCopula(2000, clayton)
+p2 <- qplot(gu[,1], gu[,2], main="Clayton copula random samples theta = 1.04")
+print(p2)
+```
+
+```{r}
+BordeauxRk <- rank(Bordeaux[1:2000])
+PloumanachRk <- rank(Ploumanach[1:2000])
+plot(BordeauxRk,PloumanachRk,pch = '.')
+qplot(BordeauxRk, PloumanachRk, main="Empirical distribution, 2000 points")
+```
+
