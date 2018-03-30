@@ -86,4 +86,7 @@
 \par On peut dès lors envisager de choisir $q = 6$. En revanche le choix de $p$ est problématique puisque la décroissance est très lente et les calculs sont trop lourds si l’on choisit $p = 21$ par exemple.
 
 \par On peut ainsi considérer un modèle SARIMA365(26,1,6)(0,1,0). Néanmoins le temps de calcul est trop grand pour de telles valeurs, sans compter un risque important d’overfitting. On pressent que le tracé de autocorrélogramme partiel est pathologique, et un traitement plus important des données aurait été nécessaire afin d’obtenir une modélisation satisfaisante.
+
+\par Ainsi, si la corrélation des deux séries temporelles est bel et bien établie, il s'avère plus délicat de la modéliser, et le choix de copules proposé n'est que partiellement satisfaisant. Il resterait à comparer la pertinence de chacun de ces deux modèles.
+
 \end{document}
