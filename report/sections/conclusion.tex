@@ -7,6 +7,7 @@
 % Première partie.
 \vspace{5mm}
 \par Dans un premier temps, nous avons essayé de proposer une modélisation de la série temporelle des températures moyennes journalières observées à Bordeaux depuis 1940.
+\par Nous avons tout d'abord opéré une décomposition de Buys-Ballot généralisée afin d'exhiber une tendance et une saisonnalité. Nous avons comparé cette approche avec une autre, la Seasonal decomposition of Time series by Loess. Nous avons alors étudié l'impact de la précision de la période considérée sur la valeur des résultats. Nous nous sommes ensuite interrogés quant à la validité d'un modèle additif plutôt que multiplicatif. Nous avons enfin taché de modéliser la série temporelle par un processus de type SARIMA, ce qui nous a confronté à des difficultés que nous n'avons pas su résoudre.
 
 % Deuxième partie.
 \vspace{5mm}
@@ -18,7 +19,7 @@
 
 % Troisième partie.
 \vspace{5mm}
-\par Enfin, nous avons cherché à étudier les dépendances entre les relevés de températures de différentes villes relativement éloignées.
+\par Enfin, nous avons cherché à étudier les dépendances entre les relevés de températures de Bordeaux et de Ploumanac'h. L'étude de la cross-correlation a révélé que les deux séries étaient bien liées, ce qu'ont validé les estimations du rho de Spearman et du tau de Kandall. On a alors pu proposer une modélisation des dépendances par des copules de Clayton et Gumbel, quoique aucun d'entre eux ne se soit avéré réellement satisfaisant. Une mesure de la capacité de ces copules à retranscrire la corrélation des données serait nécessaire pour prolonger l'étude.
 
 % Conclusion.
 \vspace{7mm}
